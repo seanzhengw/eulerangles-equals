@@ -17,3 +17,4 @@ endfunction(add_test)
 
 add_subdirectory(euler)
 add_subdirectory(quat)
+add_subdirectory(unite)
