@@ -18,6 +18,8 @@ public:
     void Set(double x, double y, double z);
     // 與 e2 代表相同旋轉狀態
     bool Equals(const EulerAngles &e2);
+    // 將歐拉角簡化
+    void Simplify();
 
     friend class Quaternion;
     friend std::ostream &operator<<(std::ostream &s, const EulerAngles &p);
@@ -97,6 +99,37 @@ inline bool EulerAngles::Equals(const EulerAngles &e2)
     }
 
     return false;
+}
+
+inline void EulerAngles::Simplify()
+{
+    mY = radiansWrap(mY);
+
+    if (closeEnough(mY, M_PI_2, 1e-6))
+    {
+        mX = radiansWrap(mX + mZ);
+        mZ = 0;
+        return;
+    }
+
+    if (closeEnough(mY, -M_PI_2, 1e-6))
+    {
+        mX = radiansWrap(mX - mZ);
+        mZ = 0;
+        return;
+    }
+
+    // let |Y| <= 90
+    if ((mY > M_PI_2) || (mY < -M_PI_2))
+    {
+        mX = radiansWrap(mX + M_PI);
+        mY = radiansWrap(M_PI - mY);
+        mZ = radiansWrap(mZ - M_PI);
+        return;
+    }
+
+    mX = radiansWrap(mX);
+    mZ = radiansWrap(mZ);
 }
 
 inline std::ostream &operator<<(std::ostream &s, const EulerAngles &e)
