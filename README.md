@@ -42,3 +42,9 @@
 3. 若 Y 是 -π/2 則 X = X - Z, Z = 0, 並將 X 轉換為在範圍 (-π, π] 內的同界角，得化簡的歐拉角。
 4. 若 |Y| > π/2 則 Y = π - Y, X = X + π, Z = Z - π, 並將 X, Y, Z 轉換為在範圍 (-π, π] 內的同界角，得化簡的歐拉角。
 5. 若沒有條件符合，將 X, Z 轉換為在範圍 (-π, π] 內的同界角，得化簡的歐拉角。
+
+相關程式在 [EulerAngles](include/EulerAngles.h) 中的成員函式
+
+    void EulerAngles::Simplify()
+
+測試方式在 [test/euler_simplify/test.cpp](test/euler_simplify/test.cpp)
